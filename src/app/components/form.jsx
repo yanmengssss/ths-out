@@ -80,22 +80,6 @@ export default function MyForm({ submit }) {
             <Field>
               <FieldLabel>开始日期</FieldLabel>
               <Input
-                placeholder="请输入开始日期"
-                {...register("start", {
-                  required: "开始日期不能为空",
-                  validate: (value) => {
-                    if (!value) return true;
-                    return isValidDate(value) || "日期格式不正确";
-                  },
-                })}
-              />
-              {errors.code && <FieldError>{errors.code.message}</FieldError>}
-            </Field>
-
-            {/* === 开始日期 === */}
-            <Field>
-              <FieldLabel>开始日期</FieldLabel>
-              <Input
                 placeholder="格式：2023-01-01"
                 {...register("start", {
                   validate: (v) => isValidDate(v) || "日期格式应为 YYYY-MM-DD",
