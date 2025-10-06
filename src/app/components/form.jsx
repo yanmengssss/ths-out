@@ -106,7 +106,7 @@ export default function MyForm({ submit }) {
             <Field>
               <FieldLabel>每页数量</FieldLabel>
               <Input
-                placeholder="默认为20"
+                placeholder="默认为40"
                 {...register("pageSize", {
                   validate: (v) =>
                     v === "" ||
