@@ -13,7 +13,7 @@ const keyList = [
   "type",
 ];
 export async function getPageData(query) {
-  let url = `http://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/dzjy/index.phtml?p=${
+  let url = `https://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/dzjy/index.phtml?p=${
     query.page || 1
   }`;
   if (query["code"]) url += "&symbol=" + query["code"];
@@ -50,7 +50,7 @@ export async function getPageData(query) {
 
 export const exportExcel = (code, exp, type) => {
   fetch(
-    `http://basic.10jqka.com.cn/api/stock/export.php?export=${exp}&type=${type}&code=${code}`,
+    `https://basic.10jqka.com.cn/api/stock/export.php?export=${exp}&type=${type}&code=${code}`,
     {
       credentials: "include", // 保证带上 Cookies
     }
