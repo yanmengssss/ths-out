@@ -14,9 +14,9 @@ export async function GET(req) {
 
   // 你要导出的三个配置
   const list = [
-    { exp: "baseinfo", type: "main", name: "基本信息" },
-    { exp: "finance", type: "detail", name: "财务数据" },
-    { exp: "holder", type: "data", name: "股东信息" },
+    { exp: "debt", type: "report", name: "资产负债表" },
+    { exp: "benefit", type: "report", name: "利润表" },
+    { exp: "cash", type: "report", name: "现金流量表" },
   ];
 
   try {
@@ -24,7 +24,7 @@ export async function GET(req) {
     const responses = await Promise.all(
       list.map((item) =>
         axios.get(
-          `http://basic.10jqka.com.cn/api/stock/export.php?export=${item.exp}&type=${item.type}&code=${code}`,
+          `https://basic.10jqka.com.cn/api/stock/export.php?export=${item.exp}&type=${item.type}&code=${code}`,
           { responseType: "arraybuffer" } // 以二进制获取
         )
       )

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { exportExcel } from "@/app/utils";
+import axios from "axios";
 import {
   Card,
   CardAction,
@@ -20,9 +20,31 @@ export default function DownloadButton() {
   const [data, setData] = useState("");
 
   const handleGetData = async () => {
-    list.forEach((item) => {
-      exportExcel(data, item.exp, item.type);
-    });
+    // list.forEach((item) => {
+    //   exportExcel(data, item.exp, item.type);
+    // });
+    try {
+      const res = await axios.get(`/api/getExcel?code=${data}`, {
+        responseType: "blob", // ✅ 必须：让 axios 以二进制流返回
+      });
+      // 创建一个 Blob URL 供下载
+      const blob = new Blob([res.data], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+
+      // 创建临时 <a> 元素触发下载
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${data}.xlsx`; // ✅ 文件名
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url); // ✅ 释放内存
+    } catch (err) {
+      console.error("下载失败:", err);
+      alert("下载失败，请稍后再试");
+    }
   };
 
   return (
